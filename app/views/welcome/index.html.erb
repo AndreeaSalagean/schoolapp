@@ -1,0 +1,8 @@
+<h1>Welcome!</h1>
+
+<%= link_to("Search School", "/schools") %><br>
+<%= link_to("New School", "/schools/new") %><br>
+
+<% if current_user %>
+<%= link_to 'Sign out', destroy_user_session_path,  method: :delete %>
+<%end%>
