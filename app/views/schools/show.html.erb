@@ -1,5 +1,7 @@
+<h1>This is your school</h1>
 <p>
   <strong>Title:</strong>
   <%= @school.title %>
 </p>
- 
+<%= link_to 'Sign out', destroy_user_session_path,  method: :delete %>
+

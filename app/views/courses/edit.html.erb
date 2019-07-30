@@ -1,0 +1,12 @@
+<h1>Edit course</h1>
+ 
+<%= form_tag '/courses/update_course' do %>
+<%= hidden_field_tag :course_id, @course.id %>
+   <p>
+    <%= label_tag :main_teacher_id %><br>
+    <%= text_field_tag 'user[id]' %>
+  </p>
+<%= submit_tag("Update") %>
+<% end %>
+ 
+<%= link_to 'Back', courses_path %>

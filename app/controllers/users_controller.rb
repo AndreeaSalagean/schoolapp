@@ -1,15 +1,21 @@
 class UsersController < ApplicationController
+  before_action :set_school, only: [:show, :index]
+
   def index
    # @users = User.all
    # @school = School.find user_params[:school_id]
    # @user = User.all.select { |user| user.school_id == school.id }#user_params[:school_id] }
-   @users = User.where(school_id: params[:school_id])
+   @users = User.where(school_id: @school.id)
   end
 
   def show
-    @user = User.find_by(params[:school_id])
+    @user = User.find_by(@school.id)
   end
   
+  def show_students
+    @users = User.where(school_id: current_user.school_id, role: 'student')
+  end
+
   def new
   	@user = User.new
   end
@@ -20,9 +26,8 @@ class UsersController < ApplicationController
   end
 
   def create_user
-    puts "-----------"
     @user = User.new(user_params_create)
-    @user.school_id = params[:school_id]
+    @user.school_id = current_user.school_id
     @user.password_confirmation = @password
 
     unless @user.save!
@@ -30,7 +35,7 @@ class UsersController < ApplicationController
       return 
     end 
 
-    redirect_to users_path(school_id: params[:school_id])
+    redirect_to users_path(school_id: current_user.school_id)
   end
 
   def update
@@ -42,12 +47,27 @@ class UsersController < ApplicationController
     end
   end
 
+ def destroy
+  @user = User.find(params[:id])
+  @user.destroy
+ 
+  redirect_to users_path(school_id: school_params[:school_id])
+end
+
 private
   def user_params
     params.require(:user).permit(:id,:email,:password, :role, :school_id)
   end
 
   def user_params_create
-    params.require(:user).permit(:email, :password, :role)
+    params.require(:user).permit(:email, :password, :first_name, :last_name,:role)
+  end
+
+  def school_params
+    params.permit(:school_id)
+  end
+
+  def set_school 
+    @school = School.find(current_user.school_id)
   end
 end

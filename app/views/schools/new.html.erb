@@ -6,10 +6,31 @@
     <%= text_field_tag 'school[title]' %>
   </p>
  
+  <p>
+    <%= label_tag :school_address %><br>
+    <%= text_field_tag 'school[address]' %>
+  </p>
+
+  <p>
+    <%= label_tag :school_contact_number %><br>
+    <%= text_field_tag 'school[telephone]' %>
+  </p>
+
+  <p>
+    <%= label_tag :admin_first_name %><br>
+    <%= text_field_tag 'user[first_name]' %>
+  </p>
+
+  <p>
+    <%= label_tag :admin_last_name %><br>
+    <%= text_field_tag 'user[last_name]' %>
+  </p>
+
    <p>
     <%= label_tag :admin_email %><br>
     <%= text_field_tag 'user[email]' %>
   </p>
+
     <p>
     <%= label_tag :password %><br>
     <%= text_field_tag 'user[password]' %>

@@ -1,11 +1,7 @@
+
 <h1>All schools</h1>
 
 <%= form_tag(controller: :schools, action: :search_school ,method: :post) do %>
-  School <%= text_field_tag :title, params[:title] %>
+  <%= text_field_tag :title, params[:title] %>
   <%= submit_tag 'Search', name: nil %>
 <% end %>
-
-
-
-
-

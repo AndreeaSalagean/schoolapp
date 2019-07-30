@@ -9,8 +9,6 @@ class SchoolsController < ApplicationController
     @school = School.search(search_school_params[:title])
     if @school
        redirect_to user_session_path(school_id: @school.id)
-       puts '-----------------------this is school-------'
-       puts @school.id
     else
       render :index
     end
@@ -50,6 +48,6 @@ private
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:email, :first_name, :last_name, :password, :address, :telephone, :password_confirmation)
   end
 end

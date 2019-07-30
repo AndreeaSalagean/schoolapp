@@ -1,0 +1,34 @@
+<h1 >Listing courses</h1>
+ 
+<table class="table ">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Teacher First Name</th>
+      <th scope="col">Teacher Last Name</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <% @courses.each do |course| %>
+  <tbody>
+    <tr>
+
+      <td><%= course.title %></td>
+      <td><%= course.teachers.first.first_name %></td>
+      <td><%= course.teachers.first.last_name %></td>
+      <td><%= link_to 'Edit', edit_course_path(course, school_id: params[:school_id]) %></td>
+  <td><%= link_to 'Destroy', course_path(course, school_id: params[:school_id]),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  </tbody>
+  <% end %>
+</table>
+<% if current_user.role != 'student' %>
+<button type="button" class="btn btn-outline-primary"><%= link_to 'New course', new_course_path(school_id: params[:school_id]) %></button>
+<button type="button" class="btn btn-outline-primary"><%= link_to 'Take a course', edit_teacher_course_courses_path(school_id: params[:school_id]) %></button>
+<button type="button" class="btn btn-outline-primary"><%= link_to 'Add student to course', add_student_course_courses_path(school_id: params[:school_id]) %></button><br><br>
+<% end %>
+<button type="button" class="btn btn-outline-primary"><%= link_to 'Sign out', destroy_user_session_path,  method: :delete %></button>

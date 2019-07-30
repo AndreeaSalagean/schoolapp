@@ -6,9 +6,6 @@ class Users::SessionsController < Devise::SessionsController
   # GET /resource/sign_in
   def new
      super
-     # @school = School.find params[:school_id]
-     # puts '......................................'
-     # puts @school.id
   end
 
   # POST /resource/sign_in
@@ -34,17 +31,13 @@ class Users::SessionsController < Devise::SessionsController
   protected
 
   def after_sign_in_path_for(resource)
-    puts '...............school id din after sign.......................'
-    puts user_params[:school_id]
-    if @user.role = 'admin'
+    if resource.role == 'admin'
       users_path(school_id: user_params[:school_id])
-    else 
-      if @user.role = 'teacher'
-        users_path(school_id: user_params[:school_id])
-      else
-         school_path(school_id: user_params[:school_id])
-      end
-    end
+    elsif resource.role == 'teacher'
+      show_students_users_path(school_id: user_params[:school_id])
+    elsif resource.role == 'student'
+      courses_path(id: user_params[:school_id])
+    end  
   end
   
   # If you have extra params to permit, append them to the sanitizer.

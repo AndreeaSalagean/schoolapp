@@ -1,0 +1,14 @@
+// Place all the styles related to the Welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap";
+
+ div.jumbotron.hero-nature{
+    color:#0000;
+    text-align:center;
+    background:url('unsplash.jpg');
+    background-size:cover;
+    background-position:center;
+    padding-top:70px;
+    padding-bottom:70px;
+}

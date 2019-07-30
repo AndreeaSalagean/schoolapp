@@ -1,7 +1,6 @@
 <h1>Edit user</h1>
  
 <%= form_with(model: @user, local: true) do |form| %>
-  <%= form.hidden_field :school_id, value: params[:school_id] %>
 
   <% if @user.errors.any? %>
     <div id="error_explanation">
