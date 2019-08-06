@@ -1,0 +1,39 @@
+<%= render 'chapters/chapter' %>
+    
+ <div class="col-sm-9">
+   <h4><small>Teachers of the course</small></h4>
+      <hr><p>
+
+ <table class="table">
+    <thead class="thead-dark">
+    <tr>
+      <th scope="col">First Name</th>
+       <th scope="col">Last Name</th>
+       <th scope="col">Email</th>
+       <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+    </thead>
+<% @users.each do |user| %>
+  <tbody>
+    <tr>
+      <td><%= user.first_name %></td>
+      <td><%= user.last_name %></td>
+      <td><%= user.email %></td>
+      <% if (current_user.id == @owner_id || current_user.role == 'admin') && user.id != @owner_id %>
+       <td><%= link_to 'Destroy', remove_from_course_courses_path(user_id: user.id, id: @course.id),style: 'color:#FFFFFF;', class: 'css_class',
+              data: { confirm: 'Are you sure?' } %></td>
+              <%end%>
+      <% if  user.id != @owner_id %>
+      <td><%= link_to 'Make Owner', update_owner_courses_path(course_id: @course.id, user_id: user.id),style: 'color:#FFFFFF;', class: 'css_class' %></td>
+      <%end%>
+</tr>
+  </tbody>
+
+  <% end %>
+</table><br>
+<% if current_user.role == 'admin' || current_user.id == @owner_id %>
+
+    <button type="button" class="btn btn-outline-light"><%= link_to 'Add teacher', join_teachers_courses_path(course_id: @course.id), style: 'color:#FFFFFF;', class: 'css_class' %></button>
+<%end%>

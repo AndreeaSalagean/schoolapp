@@ -15,14 +15,16 @@
     <%= text_field_tag 'user[email]' %>
   </p>
  
-   <p>
-    <%= label_tag :user_role %><br>
-    <%= text_field_tag 'user[role]' %>
-  </p>
     <p>
     <%= label_tag :password %><br>
     <%= text_field_tag 'user[password]' %>
   </p>
+
+<div class="field">
+<%= label_tag "Teacher" %>
+<%= check_box_tag :send_text, true, false %>
+<br/>
+</div>
 
 <%= submit_tag("Create") %>
 <% end %>

@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(@school.id)
+    @users = User.where(school_id: current_user.school_id)
   end
   
   def show_students
@@ -26,11 +26,18 @@ class UsersController < ApplicationController
   end
 
   def create_user
+
     @user = User.new(user_params_create)
     @user.school_id = current_user.school_id
     @user.password_confirmation = @password
-
+    
+    if params[:send_text] 
+      @user.role = 'teacher'
+    else
+      @user.role = 'student'
+    end
     unless @user.save!
+      flash[:error] = @user.errors.full_messages.first
       redirect_to action: 'new' 
       return 
     end 
@@ -50,17 +57,21 @@ class UsersController < ApplicationController
  def destroy
   @user = User.find(params[:id])
   @user.destroy
- 
+
   redirect_to users_path(school_id: school_params[:school_id])
 end
 
 private
+  def role_params
+
+    params.require(:user).permit(:send_text)
+  end
   def user_params
     params.require(:user).permit(:id,:email,:password, :role, :school_id)
   end
 
   def user_params_create
-    params.require(:user).permit(:email, :password, :first_name, :last_name,:role)
+    params.require(:user).permit(:email, :password, :first_name, :last_name)
   end
 
   def school_params

@@ -1,7 +1,58 @@
-<h1>This is your school</h1>
-<p>
-  <strong>Title:</strong>
-  <%= @school.title %>
-</p>
-<%= link_to 'Sign out', destroy_user_session_path,  method: :delete %>
 
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav hidden-xs">
+      <h2>Dashboard</h2>
+      <ul class="nav flex-column">
+ <% if current_user.role == 'admin' %>
+  <li class="nav-item">
+    <a class="nav-link active" href=edit_article_path(article)><%= link_to 'Edit', edit_school_path(current_user.school_id) %></a>
+  </li>
+ <% end %>
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Courses</a>
+    <div class="dropdown-menu">
+      <% if current_user.role != 'student' %>
+      <a class="dropdown-item" href="#"><%= link_to("View available courses", "/courses") %></a>
+      <a class="dropdown-item" href="courses#new"><%= link_to("Add course", "/courses/new") %></a>
+      <%end%>
+      <% if current_user.role == 'student' %>
+      	<a class="dropdown-item" href="#"><%= link_to("My courses", "/courses") %></a>
+        <% if @school.enable_enroll%>
+         <a class="dropdown-item" href="#"><%= link_to 'View available courses',show_course_enable_courses_path %></a>
+         <%end%>
+      <%end%>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Separated link</a>
+    </div>
+  </li>
+
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Users</a>
+    <div class="dropdown-menu">
+    <% if current_user.role == 'admin' %>
+      <a class="dropdown-item" href="users#index"><%= link_to("View users", "/users") %></a>
+      <a class="dropdown-item" href="users#new"><%= link_to("Add user", "/users/new") %></a>
+    <% else if current_user.role == 'teacher'%>
+      <a class="dropdown-item" href="users#show_students"><%= link_to("View users", "/users/show_students") %></a>
+     <% end %>
+    <% end %>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="#">Separated link</a>
+    </div>
+  </li>
+
+</ul><br>
+    </div>
+    <br>
+    
+ <div class="col-sm-9">
+	 <h4><small>ABOUT</small></h4>
+      <hr>
+      <h2><%= @school.title %></h2><br>
+<p>
+  
+  <%= @school.description %>
+      </p>
+      <br><br>

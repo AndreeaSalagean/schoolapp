@@ -1,0 +1,29 @@
+<h1 >Listing courses</h1>
+ 
+<% if current_user.role == 'student'%>
+
+<table class="table ">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Title</th>
+      <th></th>
+    </tr>
+  </thead>
+<% @courses2.each do |course| %>
+  <tbody>
+    <tr>
+      <td><%=  course.title%></td>
+      <td><%= link_to 'Join', join_students_courses_path(course_id: course.id),style: 'color:#FFFFFF;', class: 'css_class' %></td>
+    </tr>
+  </tbody>
+  <% end %>
+<% @courses_student.each do |course| %>
+  <tbody>
+    <tr>
+      <td><%= link_to course.title, course_path(course) ,style: 'color:#FFFFFF;', class: 'css_class'%></td>
+      <td>ENROLLED</td>
+    </tr>
+  </tbody>
+  <% end %>
+</table>
+<%end%>

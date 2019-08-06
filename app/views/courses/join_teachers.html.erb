@@ -1,0 +1,16 @@
+<h1>Add Teacher to <%= @course.title %> course! </h1>
+
+<%= form_with url: join_teacher_course_courses_path(course_id: @course.id), local: true do |form| %>
+ <% @teachers_not.each do |teacher| %>
+  <div class="field">
+    <%= form.label teacher.email %>
+    <%= form.check_box :send_text, {multiple: true}, teacher.id, nil %>
+    <br/>
+  </div>
+  <% end -%>
+
+  <p>
+    <%= form.submit %>
+  </p>
+ 
+<% end %>

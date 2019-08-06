@@ -3,9 +3,21 @@
 <%= form_tag '/courses/update_course' do %>
 <%= hidden_field_tag :course_id, @course.id %>
    <p>
-    <%= label_tag :main_teacher_id %><br>
-    <%= text_field_tag 'user[id]' %>
+    <%= label_tag :course_title %><br>
+    <%= text_field_tag 'course[title]' %>
   </p>
+
+ <%if @school.enable_enroll == true %>
+  <p>
+    <%= label_tag :enrollement_key %><br>
+    <%= text_field_tag 'course[enrollement_key]' %>
+  </p>
+<%end%>
+  <p>
+    <%= label_tag :description %><br>
+    <%= text_field_tag 'course[description]' %>
+  </p>
+  
 <%= submit_tag("Update") %>
 <% end %>
  

@@ -5,15 +5,18 @@
     <%= label_tag :course_title %><br>
     <%= text_field_tag 'course[title]' %>
   </p>
- 
+
+ <%if @school.enable_enroll == true %>
   <p>
-    <%= label_tag :teacher_first_name %><br>
-    <%= text_field_tag 'user[first_name]' %>
+    <%= label_tag :enrollment_key %><br>
+    <%= text_field_tag 'course[enrollment_key]' %>
+  </p>
+<%end%>
+
+  <p>
+    <%= label_tag :description %><br>
+    <%= text_field_tag 'course[description]' %>
   </p>
 
-   <p>
-    <%= label_tag :teacher_last_name %><br>
-    <%= text_field_tag 'user[last_name]' %>
-  </p>
 <%= submit_tag("Create") %>
 <% end %>

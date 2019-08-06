@@ -1,0 +1,14 @@
+<h1>Join <%= @course.title %> course! </h1>
+
+<%= form_with url: join_students_enroll_courses_path(course_id: @course.id), local: true do |form| %>
+ <p>
+    <%= form.label :enrollement_key %><br>
+    <%= form.text_field :enrollement_key %>
+  </p>
+
+
+  <p>
+    <%= form.submit %>
+  </p>
+ 
+<% end %>

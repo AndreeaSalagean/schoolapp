@@ -1,0 +1,17 @@
+<%= render 'chapters/chapter' %>
+    
+ <div class="col-sm-9">
+   <h4><small>CHAPTERS</small></h4>
+      <hr><p>
+      
+  <% @chapters.each do |chapter| %>
+
+    <ul class="list-group">
+      
+        <dt><li class="list-group-item-active"><%= link_to chapter.title, course_chapter_path(id: chapter.id) ,style: 'color:#FFFFFF;', class: 'css_class'%></li></dt>
+      
+    </ul>
+ <% end %>
+
+
+  

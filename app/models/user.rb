@@ -6,7 +6,7 @@ class User < ApplicationRecord
   
   belongs_to :school
   
-  has_many :user_courses
+  has_many :user_courses, foreign_key: 'teacher_id'
   has_many :courses, through: :user_courses 
 
   has_many :student_courses, foreign_key: 'student_id'

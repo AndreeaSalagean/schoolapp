@@ -5,7 +5,6 @@
       <th scope="col">First Name</th>
        <th scope="col">Last Name</th>
        <th scope="col">Email</th>
-      <th scope="col">Role</th>
       <th scope="col"></th>
       <th scope="col"></th>
     </tr>
@@ -16,9 +15,8 @@
       <td><%= user.first_name %></td>
       <td><%= user.last_name %></td>
       <td><%= user.email %></td>
-      <td><%= user.role %></td>
-      <td><%= link_to 'Edit', edit_user_path(user, school_id: params[:school_id]) %></td>
-  <td><%= link_to 'Destroy', user_path(user, school_id: params[:school_id]),
+      <td><%= link_to 'Edit', edit_user_path(user, school_id: params[:school_id]), style: 'color:#FFFFFF;', class: 'css_class' %></td>
+  <td><%= link_to 'Destroy', user_path(user, school_id: params[:school_id]), style: 'color:#FFFFFF;', class: 'css_class',
               method: :delete,
               data: { confirm: 'Are you sure?' } %></td></tr>
   </tbody>
@@ -26,5 +24,3 @@
   <% end %>
 </table><br>
 
-<button type="button" class="btn btn-outline-primary"><%= link_to 'View available courses', courses_path %></button>
-<button type="button" class="btn btn-outline-primary"><%= link_to 'Sign out', destroy_user_session_path,  method: :delete %></button>

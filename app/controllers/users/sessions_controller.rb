@@ -31,13 +31,8 @@ class Users::SessionsController < Devise::SessionsController
   protected
 
   def after_sign_in_path_for(resource)
-    if resource.role == 'admin'
-      users_path(school_id: user_params[:school_id])
-    elsif resource.role == 'teacher'
-      show_students_users_path(school_id: user_params[:school_id])
-    elsif resource.role == 'student'
-      courses_path(id: user_params[:school_id])
-    end  
+      session[:school_id] = current_user.school_id 
+      school_path(id: session[:school_id])
   end
   
   # If you have extra params to permit, append them to the sanitizer.

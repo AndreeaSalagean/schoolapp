@@ -1,22 +1,70 @@
 <!doctype html>
 <html lang="en">
-  <div class="jumbotron hero-nature bg-dark text-white vertical-center" >
-  <div class="container text-center">
-  <head>
-    <title><%=  %></title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
 
-  <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+<body>
+  <% if current_user %>
+  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">School Ap</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav ">
+        <li><a href="schools#show">
+          <%= link_to 'ABOUT', school_path(current_user.school_id) %></a></li>
+          <li><a href="courses#index"><%= link_to("COURSES", "/courses") %></a></li>
+        <% if current_user.role == 'admin' %>
+          <li><a href="users#index"><%= link_to("USERS", "/users") %></a></li></a></li>
+        <% else if current_user.role == 'teacher' %>
+          <li><a href="users#index"><%= link_to("USERS", "/users/show_students") %></a></li></a></li>
+        <% end %>
+        <% end %>
+          <li><a href="destroy_user_session_path"><%= link_to 'Sign out', destroy_user_session_path,  method: :delete %></a></li>
+      
+      </ul>
+    </div>
+  </div>
+  </nav>
+  <%else %>
+  <nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#index">School App</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#about">ABOUT</a></li>
+        
+        <li><a href="#contact">CONTACT</a></li>
+      </ul>
+    </div>
+  </div>
+</nav> 
+<%end%>
+  <div class="jumbotron text-center">
+  
+    <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+      <% end %>
     <%= yield %>
-  </body>
+  </div>
+</body>
 
-</div>
-</div>
 </html>
