@@ -25,8 +25,12 @@ Rails.application.routes.draw do
     match :join_teacher_course, via: :post, on: :collection
     match :remove_from_course, via: :get, on: :collection
     match :show_course_enable, via: :get, on: :collection
+
     resources :chapters do
-      match :create_chapter, via: :post, on: :collection
+
+      resources :assignments do
+        match :create_assignment, via: :post, on: :collection
+      end
     end
 
 end

@@ -1,0 +1,19 @@
+<h1>New Assignment</h1>
+
+<%= form_with url: create_assignment_course_chapter_assignments_path(course_id: @course.id), local: true do |form| %>
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </p>
+
+ <p>
+    <%= form.label :due_date %><br>
+    <input type= "date" id="start" name="trip_start">
+
+  </p>
+
+         
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

@@ -8,6 +8,7 @@ class ChaptersController < ApplicationController
 	def show
    		@chapter = Chapter.find(params[:id])
    		@course = @chapter.course
+   		@assignments = @chapter.assignments
 	end
 
 	def new

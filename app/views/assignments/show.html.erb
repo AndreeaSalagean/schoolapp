@@ -1,0 +1,55 @@
+<%= render 'chapters/chapter' %>
+<div class="col-sm-9">
+   <h4><small><%=@assignment.title%></small></h4>
+      <hr><p>
+
+<h5> <%= @assignment.description %> </h5><br><br>
+plus resursele existente
+
+<% if current_user.role != 'student' %>
+
+aici de adaugat ori text ori de uploadat ceva pt teacheri??
+
+ <button type="button" class="btn btn-outline-light"><%= link_to 'Add submission', join_teachers_courses_path(course_id: @course.id), style: 'color:#FFFFFF;', class: 'css_class' %></button>
+<% end %>
+
+
+
+<% else %>
+
+<br><h5> Submission status </h5><br>
+
+<table class="table ">
+  <tbody>
+    <tr>
+       <td class = "cell c0">Submission status</td>
+       <% if @assignment.submission %>
+      		<td class = "cell c1 lastcol">Submitted</td>
+      <% else %>
+      		<td class = "cell c1 lastcol">No attempt</td>
+       <% end %>
+    </tr>
+     <tr>
+       <td class = "cell c0">Grading status</td>
+       <% if @assignment.grade  %>
+       		<td class = "cell c1 lastcol"><% @assignment.grade %></td>
+       <% else %>
+       		<td class = "cell c1 lastcol">No graded</td>
+        <% end %>
+      
+    </tr>
+     <tr>
+       <td class = "cell c0">Due date</td>
+      <td class = "cell c1 lastcol"><% @assignment.due_date %></td>
+    </tr>
+     <tr>
+       <td class = "cell c0">Time remaining</td>
+      <td class = "cell c1 lastcol"></td>
+    </tr>
+ </tbody>
+</table>
+  
+  <button type="button" class="btn btn-outline-light"><%= link_to 'Add submission', join_teachers_courses_path(course_id: @course.id), style: 'color:#FFFFFF;', class: 'css_class' %></button>
+<% end %>
+
+
