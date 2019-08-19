@@ -1,12 +1,56 @@
 <%= render 'chapters/chapter' %>
  <div class="col-sm-9">
    <h4><small><%=@chapter.title %></small></h4>
+   <%= link_to 'Destroy Chapter', [@chapter.course, @chapter],
+               method: :delete,
+               data: { confirm: 'Are you sure?' } %>
       <hr><p>
   	<%= @chapter.body %></p>
 <br><br><br>
 
-<h5> RESOURCE FILE PDF</h5><br>
-  <h4><small>Assignments</small></h4>
+<h5> RESOURCE FILES</h5><br>
+
+<div class="container">   
+<% if !flash[:notice].blank? %>   
+   <div>   
+      <%= flash[:notice] %>   
+   </div>   
+<% end %>   
+  
+<br>   
+
+<table class="table ">
+  <thead>   
+      <tr>   
+         <th>Name</th>   
+         <th>Download Link</th>   
+         <% if current_user.role != 'student' %>
+         	<th>Action</th>  
+         <%end %> 
+      </tr>   
+   </thead>
+
+<tbody>   
+      <% @resources.each do |resource| %>   
+            
+         <tr>   
+            <td><%= resource.name %></td>   
+            <td><%= link_to "Download", resource.attachment_url %></td>   
+            <% if current_user.role != 'student' %>
+            <td><%= link_to "Delete",  resource_path(id: resource.id), method: :delete, confirm: "Are you sure you want to delete #{resource.name}?" %></td>   
+         	<%end %>
+         </tr>   
+            
+      <% end %>   
+   </tbody>   
+      
+</table>   
+</div> 
+<% if current_user.role != 'student' %>
+	<button type="button" class="btn btn-outline-light"><%= link_to 'New Resource', new_resource_path(course_id: @course.id, chapter_id: @chapter.id), style: 'color:#FFFFFF;', class: 'css_class' %></button><br>
+<%end %>
+
+  <br><h4><small>Assignments</small></h4>
       <hr><p>
 
 <% @assignments.each do |assig| %>

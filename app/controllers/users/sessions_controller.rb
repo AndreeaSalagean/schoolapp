@@ -14,7 +14,6 @@ class Users::SessionsController < Devise::SessionsController
     @user = User.where(email: user_params[:email]).first
     if @user != nil
       if !(@user.school_id == @school.id)
-        puts '...............nu e la fel id.......................'
         flash[:notice] = "#{ @user.id } do not have portal access."
         redirect_to user_session_path(school_id: user_params[:school_id])
       else

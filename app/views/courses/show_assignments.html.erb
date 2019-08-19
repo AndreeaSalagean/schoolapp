@@ -1,0 +1,61 @@
+<h1 >Listing assignments</h1>
+<% if current_user.role != 'student' %>
+  <table class="table ">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Chapter</th>
+        <th scope="col">Due Date</th>
+        <th></th>
+      </tr>
+    </thead>
+  <% @assignments.each do |assig| %>
+    <tbody>
+      <tr>
+        <td><%= assig.title%></td>
+        <td><%= assig.chapter.title%></td>
+        <td><%= assig.due_date%></td>
+        <% if current_user.role != 'student' %>
+          <td><%= link_to 'Edit', edit_course_chapter_assignment_path(course_id: @course.id, chapter_id: assig.chapter.id, id: assig.id),style: 'color:#FFFFFF;', class: 'css_class' %></td>
+        <%end%>
+      </tr>
+    </tbody>
+   <% end %>
+  </table>
+
+<% else %>
+
+
+  <table class="table ">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Chapter</th>
+        <th scope="col">Due Date</th>
+        <th scope="col">Status</th>
+      </tr>
+    </thead>
+  <% @submissions.each do |sub| %>
+
+    <tbody>
+      <tr>
+        <td><%= sub.assignment.title%></td>
+        <td><%= sub.assignment.chapter.title%></td>
+        <td><%= sub.assignment.due_date%></td>
+        <% if current_user.role != 'student' %>
+          <td><%= link_to 'Edit', edit_course_chapter_assignment_path(course_id: @course.id, chapter_id: assig.chapter.id, id: assig.id),style: 'color:#FFFFFF;', class: 'css_class' %></td>
+        <% else %>
+
+          <% if sub.grade %>
+             <td><%= sub.grade %></td>
+          <% else %>
+            <td>Not graded</td>
+          <%end%>
+        <%end%>
+      </tr>
+    </tbody>
+   <% end %>
+  </table>
+
+
+<% end %>

@@ -25,8 +25,7 @@ class SchoolsController < ApplicationController
     @school = School.find(params[:id])
   end
  
-  def create
-    
+  def create  
     @school = School.create(school_params)
     @school.enable_enroll = 0
 
@@ -41,25 +40,24 @@ class SchoolsController < ApplicationController
     @user.role = 'admin'
     @user.password_confirmation = @password
 
-
-   unless @user.save
+    unless @user.save
       flash[:error] = @user.errors.full_messages.first
       redirect_to action: 'new' 
       return 
     end 
     
-    redirect_to index_path #controller
+    sign_in(@user)
+    redirect_to school_path(id: @school.id)
  end
  
  def update
-
   @school = School.find(params[:id])
   if enroll_params == true
     @school.enable_enroll = true
   else
     @school.enable_enroll = false
   end
-  #S@school.enable_enroll = enroll_params
+  
   if @school.update(school_params)
     redirect_to @school
   else
@@ -72,6 +70,7 @@ private
   def enroll_params
     params.require(:school).permit(:send_text)
   end
+
   def school_params
     params.require(:school).permit(:title, :id, :description, :address, :telephone)
   end

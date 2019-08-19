@@ -1,0 +1,30 @@
+<%= render 'chapters/chapter' %>
+    
+<div class="col-sm-9">
+  <h4><small><%= @forum.title %></small></h4>
+      <hr><p>
+	<%= @forum.description %>
+	<table class="table ">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Title</th>
+        <th scope="col">Started by</th>
+        <th scope="col">Replies</th>
+        <th></th>
+      </tr>
+    </thead>
+  <% @discussions.each do |dis| %>
+    <tbody>
+      <tr>
+        <td><%= link_to dis.title, forum_discussion_path(forum_id: dis.forum.id, id: dis.id, course_id: @course.id), style: 'color:#FFFFFF;', class: 'css_class'%></td>
+        <td><%= dis.started_by %></td>
+        <td><%= dis.replies%></td>
+        <% if current_user.role != 'student' %>
+          <td><%= link_to 'Edit',edit_forum_discussion_path(id: dis.id, forum_id: dis.forum.id, course_id: @course.id), style: 'color:#FFFFFF;', class: 'css_class' %></td>
+        <%end%>
+      </tr>
+    </tbody>
+   <% end %>
+  </table>
+
+<button type="button" class="btn btn-outline-light"><%= link_to 'Add a new discussion topic',  discussions_new_path(course_id: @course.id),style: 'color:#FFFFFF;', class: 'css_class' %></button>

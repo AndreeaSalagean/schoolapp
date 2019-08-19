@@ -6,34 +6,29 @@
 
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Chapters</a>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#"><%= link_to 'View available chapters', course_chapters_path(course_id: @course.id) %></a>
-      <% if current_user.role !='student'&& %>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="chapters#new"><%= link_to 'Add chapter', new_course_chapter_path(course_id: @course.id) %></a>
-    </div>
-  </li>
-<%end%>
-    <li class="nav-item dropdown">
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#"><%= link_to 'View available chapters', course_chapters_path(course_id: @course.id) %></a>
+          <% if current_user.role !='student'&& %>
+            <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="chapters#new"><%= link_to 'Add chapter', new_course_chapter_path(course_id: @course.id) %></a>
+            </div></li>
+          <%end%>
+  <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Assignments</a>
     <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">link_to 'View assignments', index_assignment_course_chapters_path(course_id: @course.id)</a>  
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Separated link</a>
+      <a class="dropdown-item" href="#"><%= link_to 'View assignments', show_assignments_courses_path(course_id: @course.id) %></a>  
     </div>
   </li>
- <% if current_user.role != 'student' %>
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Teachers</a>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="users#index"><%= link_to 'View teachers', show_teachers_courses_path(course_id: @course.id) %></a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="#">Separated link</a>
-    </div>
+    <% if current_user.role != 'student' %>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Teachers</a>
+        <div class="dropdown-menu">
+         <a class="dropdown-item" href="users#index"><%= link_to 'View teachers', show_teachers_courses_path(course_id: @course.id) %></a>
+        </div>
   </li>
-  <%end%>
-      <a class="nav-link active" href=edit_article_path(article)><%= link_to 'Resources', edit_school_path(current_user.school_id) %></a>
-      <a class="nav-link active" href=edit_article_path(article)><%= link_to 'Forum', edit_school_path(current_user.school_id) %></a>
-</ul><br>
-    </div>
+    <%end%>
+      <a class="nav-link active" href=edit_article_path(article)><%= link_to 'Resources', resources_index_path(course_id: @course.id) %></a>
+      <a class="nav-link active" href=#><%= link_to 'Forum', forums_path(course_id: @course.id) %></a></ul><br>
+</div>
+
  

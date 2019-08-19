@@ -11,4 +11,6 @@ class User < ApplicationRecord
 
   has_many :student_courses, foreign_key: 'student_id'
   has_many :courses, through: :student_courses
+
+  has_many :submissions
 end

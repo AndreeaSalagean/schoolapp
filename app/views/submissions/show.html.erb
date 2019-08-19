@@ -1,0 +1,29 @@
+
+
+  <strong>Title:</strong>
+  <%= @submission.new %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @submission.content %>
+</p>
+<br><br>
+<% if current_user.role != 'student' %>
+	<h4><small>Grade Assignment</small></h4> <hr>
+	<%= form_with url: grade_submissions_path(sub_id: @submission.id), local: true do |form| %>
+ 
+ 	<% @array.each do |a| %>
+    	<%= form.label a %>
+    	<%= form.check_box :send_text, {multiple: false}, a, nil %>
+  	<% end -%>
+
+  	<p>
+    	<%= form.submit %>
+  	</p>
+<% end %>
+
+<hr>
+<%else%>
+
+<%end %>

@@ -1,4 +1,14 @@
 Rails.application.routes.draw do
+  get 'discussions/indexedit'
+  get 'discussions/show'
+  get 'discussions/new'
+  resources :submissions do
+    match :grade, via: :post, on: :collection
+  end
+  resources :articles
+  get 'resources/index'
+  get 'resources/new'
+  get 'resources/destroy'
   devise_for :users, :controllers => { :sessions => 'users/sessions' }
   # devise_scope :user dopost
   # end
@@ -25,6 +35,7 @@ Rails.application.routes.draw do
     match :join_teacher_course, via: :post, on: :collection
     match :remove_from_course, via: :get, on: :collection
     match :show_course_enable, via: :get, on: :collection
+    match :show_assignments, via: :get, on: :collection
 
     resources :chapters do
 
@@ -33,14 +44,25 @@ Rails.application.routes.draw do
       end
     end
 
-end
+  end
 
+  resources :forums do
+    resources :discussions do
+      resources :replies 
+    end
+  end
+  resources :resources, only: [:index, :new, :create, :destroy]   
 
   resources :schools do
     match :search_school, via: :post, on: :collection
 
   end
   
+  post 'replies/create'
+  post 'discussions/update'
+  post 'discussions/create'
+  post 'forums/create'
+  post 'forums/update'
   post 'schools/create'
   post 'schools/update'
   root 'welcome#index'

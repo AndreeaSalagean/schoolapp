@@ -7,4 +7,25 @@
 <p>
   <%= @course.description %>
  </p>
+
+ <br><h4> STATUS board </h4>
+ <table class="table ">
+  <tbody>
+     
+     <tr>
+       <td class = "cell c0">Chapters</td>
+   	   <td class = "cell c1 lastcol"><%=@nr_chapters%></td>
+     </tr>
+
+     <tr>	
+ 	  <td class = "cell c0"><%= link_to 'Assignments' , show_assignments_courses_path(course_id: @course.id),style: 'color:#FFFFFF;', class: 'css_class' %></td>
+       <td class = "cell c1 lastcol"><%= @nr_assig %></td>    
+     </tr>
+
+     <tr>
+        <td class = "cell c0">Resources</td>
+        <td class = "cell c1 lastcol"><%=@resources%></td>
+     </tr>
+ </tbody>
+</table>
      

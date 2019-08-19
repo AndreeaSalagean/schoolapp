@@ -64,10 +64,15 @@ body {
   border-color: transparent;
   color: #fff !important;
 }
+.submission_content{
+  color: #fff 
 
+}
+trix-toolbar .trix-editor{
+  background-color: green;
+}
 
-   .row.content {height: 400px}
-    
+   
     /* Set gray background color and 100% height */
     .sidenav {
       background-color: #f1f1f1;
@@ -95,4 +100,30 @@ table{
 }
 .ul {
   text-align: left;
+}
+
+.trix-editor.submission_content{
+  
+ background-color: #f1f1f1;
+      color: #686868;
+      height: 100%;
+      width: 200%
+}
+.submission_content_trix_input_submission{
+  color: #686868;
+      height: 100%;
+      width: 200%
+
+}
+.element{
+   color: #686868;
+      height: 100%;
+      width: 200%
+
+}
+submission_content{
+
+  color: #686868;
+      height: 100%;
+      width: 200%
 }

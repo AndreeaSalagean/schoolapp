@@ -1,55 +1,95 @@
 <%= render 'chapters/chapter' %>
 <div class="col-sm-9">
    <h4><small><%=@assignment.title%></small></h4>
-      <hr><p>
+      <hr><p><br>
 
-<h5> <%= @assignment.description %> </h5><br><br>
-plus resursele existente
+<%= @assignment.description %> <br><br>
 
 <% if current_user.role != 'student' %>
 
-aici de adaugat ori text ori de uploadat ceva pt teacheri??
-
- <button type="button" class="btn btn-outline-light"><%= link_to 'Add submission', join_teachers_courses_path(course_id: @course.id), style: 'color:#FFFFFF;', class: 'css_class' %></button>
-<% end %>
-
-
-
+<table class="table ">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Title</th>
+      <th scope="col">Student</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+    <% @submis.each do |submission| %>
+      <tbody>
+        <tr>
+          <td><%= submission.new %></td>
+          <td> <%= submission.student.email %></td>
+          <td><%=  link_to 'Show', submission , style: 'color:#FFFFFF;', class: 'css_class' %></td>
+          <td><%= link_to 'Destroy', submission, style: 'color:#FFFFFF;', class: 'css_class',
+              method: :delete,
+              data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      </tbody>
+    <% end %>
+ 
 <% else %>
 
 <br><h5> Submission status </h5><br>
 
 <table class="table ">
   <tbody>
+     <% if @submission %>
+       <tr>
+         <td class = "cell c0">Submission status</td>
+          <% if @submission.submit %>
+      		  <td class = "cell c1 lastcol">Submitted</td>
+          <% else %>
+      		  <td class = "cell c1 lastcol">No attempt</td>
+          <% end %>
+      </tr>
+
+      <tr>
+        <td class = "cell c0">Grading status</td>
+          <% if @submission.grade  %>
+       		 <td class = "cell c1 lastcol"><%= @submission.grade %></td>
+          <% else %>
+       		 <td class = "cell c1 lastcol">No graded</td>
+          <% end %>
+      </tr>
+
+    <%else%>
+
     <tr>
-       <td class = "cell c0">Submission status</td>
-       <% if @assignment.submission %>
-      		<td class = "cell c1 lastcol">Submitted</td>
-      <% else %>
-      		<td class = "cell c1 lastcol">No attempt</td>
-       <% end %>
+      <td class = "cell c0">Submission status</td>
+      <td class = "cell c1 lastcol">No attempt</td>
     </tr>
-     <tr>
-       <td class = "cell c0">Grading status</td>
-       <% if @assignment.grade  %>
-       		<td class = "cell c1 lastcol"><% @assignment.grade %></td>
-       <% else %>
-       		<td class = "cell c1 lastcol">No graded</td>
-        <% end %>
-      
+
+    <tr>
+      <td class = "cell c0">Grading status</td>
+      <td class = "cell c1 lastcol">No graded</td>
     </tr>
-     <tr>
-       <td class = "cell c0">Due date</td>
-      <td class = "cell c1 lastcol"><% @assignment.due_date %></td>
+
+    <%end%>
+
+    <tr>
+      <td class = "cell c0">Due date</td>
+      <td class = "cell c1 lastcol"><%= @assignment.due_date %></td>
     </tr>
-     <tr>
-       <td class = "cell c0">Time remaining</td>
-      <td class = "cell c1 lastcol"></td>
+     
+    <tr>
+      <td class = "cell c0">Time remaining</td>
+      <% if @assignment.due_date.to_i <= Time.current.to_i %>
+        <td class = "cell c1 lastcol">Passed</td>
+      <%else%>
+        <td class = "cell c1 lastcol"><%= distance_of_time_in_words(Time.current - @assignment.due_date ) %></td>
+      <% end %>
     </tr>
  </tbody>
 </table>
-  
-  <button type="button" class="btn btn-outline-light"><%= link_to 'Add submission', join_teachers_courses_path(course_id: @course.id), style: 'color:#FFFFFF;', class: 'css_class' %></button>
+   
+<% if !@submission %>
+  <% if @assignment.due_date.to_i >= Time.current.to_i %>
+    <button type="button" class="btn btn-outline-light"><%= link_to 'Add submission', new_submission_path(assig_id: @assignment.id, course_id: @course.id, chapter_id: params[:chapter_id]), style: 'color:#FFFFFF;', class: 'css_class' %></button>
+  <% end %>
+<% end %>
 <% end %>
 
 

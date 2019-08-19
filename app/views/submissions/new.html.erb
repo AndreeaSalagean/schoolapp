@@ -1,0 +1,9 @@
+  <%= render 'chapters/chapter' %>
+  <div class="col-sm-9">
+   <h4><small><%=@assignment.title%></small></h4>
+      <hr><p><br>
+<h3>New Submission</h3><br>
+
+<%= render 'form', submission: @submission %><br>
+
+<%= link_to 'Back', submissions_path %>
